@@ -4,21 +4,20 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-// Fetch currencies from CoinGecko API
-async function fetchCurrencies() {
+// Fetch all coins from CoinGecko API
+async function fetchCoins() {
   try {
-    const response = await axios.get('https://api.coingecko.com/api/v3/simple/supported_vs_currencies');
-    if(response.status == 200)
+    const response = await axios.get('https://api.coingecko.com/api/v3/coins/list');
     return response.data;
   } catch (error) {
-    console.error('Error fetching currencies:', error);
+    console.error('Error fetching coins:', error);
     return [];
   }
 }
 
 // Serve HTML page
 app.get('/', async (req, res) => {
-  res.sendFile(__dirname + '/data.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 // Serve CSS file
@@ -26,10 +25,10 @@ app.get('/styles.css', (req, res) => {
   res.sendFile(__dirname + '/styles.css');
 });
 
-// Serve fetched currencies
-app.get('/currencies', async (req, res) => {
-  const currencies = await fetchCurrencies();
-  res.json(currencies);
+// Serve fetched coins
+app.get('/coins', async (req, res) => {
+  const coins = await fetchCoins();
+  res.json(coins);
 });
 
 app.listen(PORT, () => {
