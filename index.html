@@ -43,7 +43,9 @@
 
       coins.forEach(coin => {
         const listItem = document.createElement('li');
+
         listItem.textContent = `${coin.name} (${coin.symbol.toUpperCase()})`;
+        
         coinList.appendChild(listItem);
       });
     }
