@@ -4,10 +4,24 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+const url = require('url');
+const baseUrl = 'https://api.coingecko.com/api/v3/coins/list';
+const apiKey = 'CG-AYvX4AtgKmmkfd9DwuHEZQYE';
+
+// Construct the URL with the API key as a query parameter
+const apiUrl = url.format({
+  pathname: baseUrl,
+  query: {
+    api_key: apiKey
+  }
+});
+
+console.log(apiUrl);
+
 // Fetch all coins from CoinGecko API
 async function fetchCoins() {
   try {
-    const response = await axios.get('https://api.coingecko.com/api/v3/coins/list');
+    const response = await axios.get(apiUrl);
     return response.data;
   } catch (error) {
     console.error('Error fetching coins:', error);
