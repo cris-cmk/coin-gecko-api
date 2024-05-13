@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-
+//get port from env file else default to 3000
 const PORT = process.env.PORT || 3000;
 
 const url = require('url');
